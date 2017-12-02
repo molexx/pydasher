@@ -32,16 +32,15 @@ for v in yaml_dict.itervalues():
 # Look for arps
 def arp_display(pkt):
   if pkt[ARP].op == 1: #who-has (request)
-    if pkt[ARP].psrc == '0.0.0.0': # ARP Probe
-      if pkt[ARP].hwsrc in buttons.keys(): # Found a button's MAC
-        dashlog.write("Found a button\n")
-        # Fire a curl POST to HA's web API
-        dashlog.write("\n")
-        subprocess.call(["curl", "-H", "x-ha-access: " + password, "-X", "POST", "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)], stdout=dashlog)
-        # Output response to log
-      else:
-        # Output unknown ARP's to the log as well
-        dashlog.write("ARP Probe from unknown device: " + pkt[ARP].hwsrc + "\n")
+    if pkt[ARP].hwsrc in buttons.keys(): # Found a button's MAC
+      dashlog.write("Found a button\n")
+      # Fire a curl POST to HA's web API
+      dashlog.write("\n")
+      subprocess.call(["curl", "-H", "x-ha-access: " + password, "-X", "POST", "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)], stdout=dashlog)
+      # Output response to log
+    else:
+      # Output unknown ARP's to the log as well
+      dashlog.write("ARP Probe from unknown device: " + pkt[ARP].hwsrc + "\n")
 
 # Run it
 time.sleep(15)
