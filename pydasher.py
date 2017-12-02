@@ -43,5 +43,4 @@ def arp_display(pkt):
       dashlog.write("ARP Probe from unknown device: " + pkt[ARP].hwsrc + "\n")
 
 # Run it
-time.sleep(15)
 sniff(prn=arp_display, filter="arp", store=0, count=0)
