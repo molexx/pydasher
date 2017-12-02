@@ -42,9 +42,9 @@ button 3:
 
 This has only been tested on Ubuntu!
 
-This script uses Scapy to detect ARP requests, so lets install it.
+This script uses Scapy (which needs tcpdump) to detect ARP requests and yaml for config, so lets install them:
 
-sudo apt-get install python-scapy
+sudo apt-get install python-scapy tcpdump python-yaml
 
 git clone git@github.com:w1ll1am23/pydasher.git
 
