@@ -31,6 +31,9 @@ button 3:
   HA_EVENT: "set_away"
 ```
 
+MAC addresses are case-insensitive.
+
+
 ## Tips
 
 * Dash buttons take ~5 seconds to trigger your action.
@@ -42,11 +45,15 @@ button 3:
 
 This has only been tested on Ubuntu!
 
-This script uses Scapy (which needs tcpdump) to detect ARP requests and yaml for config, so lets install them:
+This script uses Scapy (which needs tcpdump) to detect ARP requests and yaml for config, so let's install them:  
 
-sudo apt-get install python-scapy tcpdump python-yaml
+    sudo apt-get install python-scapy tcpdump python-yaml
 
-git clone git@github.com:w1ll1am23/pydasher.git
+Download pydasher:  
+
+    git clone git@github.com:w1ll1am23/pydasher.git
+
+
 
 ## Running It
 
@@ -58,3 +65,13 @@ Unfortunately scapy sometimes errors out with "IndexError: Layer [ARP] not found
 startup. I have been unable to find a proper solution to this, so I have included 
 a bash script which I have scheduled to run in cron every minute. This keeps the pydasher
 running, runs it on startup, and "fixes" the above issue.
+
+
+
+## Discovering a new device's MAC address
+
+To find the MAC address of a new button that has been added to the Wifi enable pydasher's debugging by passing
+
+  --log=debug
+
+on the commandline. This will output the MAC address of all scans - watch it when you press your new button.
