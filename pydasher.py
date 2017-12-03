@@ -54,7 +54,7 @@ def arp_display(pkt):
       # Output response to log
     else:
       # Output unknown ARP's to the log as well
-      dashlog.write("ARP Probe from unknown device: " + pkt[ARP].hwsrc + "\n")
+      #dashlog.write("ARP Probe from unknown device: " + pkt[ARP].hwsrc + "\n")
       logging.debug("ARP Probe from unknown device: mac: " + pkt[ARP].hwsrc + " ip: " +  pkt[ARP].psrc + "\n")
 
 
