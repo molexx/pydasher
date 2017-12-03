@@ -1,5 +1,7 @@
+#!/usr/bin/python2
 import logging
 logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.INFO)
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 import subprocess
