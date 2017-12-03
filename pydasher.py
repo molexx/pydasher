@@ -45,11 +45,12 @@ for v in yaml_dict.itervalues():
 def arp_display(pkt):
   if pkt[ARP].op == 1: #who-has (request)
     if pkt[ARP].hwsrc in buttons.keys(): # Found a button's MAC
+      url = "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)
       dashlog.write("Found a button\n")
-      logging.info("Found a button - mac: " + pkt[ARP].hwsrc +  ", ip: " + pkt[ARP].psrc + " - sending event '" + buttons.get(pkt[ARP].hwsrc) + "'\n")
+      logging.info("Found a button - mac: " + pkt[ARP].hwsrc +  ", ip: " + pkt[ARP].psrc + " - sending event '" + buttons.get(pkt[ARP].hwsrc) + "' by POSTing to: '" + url + "'\n")
       # Fire a curl POST to HA's web API
       dashlog.write("\n")
-      subprocess.call(["curl", "-S", "-s", "-H", passwordParam, "-X", "POST", "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)], stdout=dashlog)
+      subprocess.call(["curl", "-S", "-s", "-H", passwordParam, "-X", "POST", url], stdout=dashlog)
       # Output response to log
     else:
       # Output unknown ARP's to the log as well
