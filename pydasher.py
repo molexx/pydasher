@@ -49,7 +49,7 @@ def arp_display(pkt):
       logging.info("Found a button - mac: " + pkt[ARP].hwsrc +  ", ip: " + pkt[ARP].psrc + " - sending event '" + buttons.get(pkt[ARP].hwsrc) + "'\n")
       # Fire a curl POST to HA's web API
       dashlog.write("\n")
-      subprocess.call(["curl", "-H",              passwordParam, "-X", "POST", "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)], stdout=dashlog)
+      subprocess.call(["curl", "-S", "-s", "-H", passwordParam, "-X", "POST", "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)], stdout=dashlog)
       # Output response to log
     else:
       # Output unknown ARP's to the log as well
