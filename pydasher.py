@@ -1,7 +1,6 @@
 #!/usr/bin/python2
+import argparse
 import logging
-logging.basicConfig(level=logging.DEBUG)
-# logging.basicConfig(level=logging.INFO)
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 import subprocess
@@ -9,7 +8,18 @@ import yaml
 import os
 
 
-logging.info('starting...')
+parser = argparse.ArgumentParser()
+parser.add_argument('-log', '--log', nargs='?', help='set log level - defaults to INFO, set to DEBUG to see all MAC addresses', default='INFO')
+args = parser.parse_args()
+
+loglevelstr = args.log.upper()
+numeric_level = getattr(logging, loglevelstr)
+if not isinstance(numeric_level, int):
+  raise ValueError('Invalid log level: %s' % loglevelstr)
+logging.basicConfig(level=numeric_level)
+
+
+logging.info('starting... (log level: ' + loglevelstr + ")")
 
 
 # Get current working directory
