@@ -23,7 +23,14 @@ yaml_dict = yaml.load(open(path + '/config.yaml'))
 config = yaml_dict['home_assistant']
 # Extract HA host and api password
 host = config['host']
-password = config['api_password']
+password = config.get('api_password', None)
+
+if password != None:
+  passwordParam = "x-ha-access: " + password
+else:
+  passwordParam = ""
+
+
 # Remove HA settings from dict
 del yaml_dict['home_assistant']
 
@@ -42,7 +49,7 @@ def arp_display(pkt):
       logging.info("Found a button - mac: " + pkt[ARP].hwsrc +  ", ip: " + pkt[ARP].psrc + " - sending event '" + buttons.get(pkt[ARP].hwsrc) + "'\n")
       # Fire a curl POST to HA's web API
       dashlog.write("\n")
-      subprocess.call(["curl", "-H", "x-ha-access: " + password, "-X", "POST", "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)], stdout=dashlog)
+      subprocess.call(["curl", "-H",              passwordParam, "-X", "POST", "http://" + host + ":8123/api/events/" + buttons.get(pkt[ARP].hwsrc)], stdout=dashlog)
       # Output response to log
     else:
       # Output unknown ARP's to the log as well
