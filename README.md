@@ -43,7 +43,7 @@ MAC addresses are case-insensitive.
 
 ### Install
 
-This has only been tested on Ubuntu!
+This has only been tested on Ubuntu and Raspberry Pi (raspbian)!
 
 This script uses Scapy (which needs tcpdump) to detect ARP requests and yaml for config, so let's install them:  
 
@@ -72,6 +72,6 @@ running, runs it on startup, and "fixes" the above issue.
 
 To find the MAC address of a new button that has been added to the Wifi enable pydasher's debugging by passing
 
-  --log=debug
+    --log=debug
 
 on the commandline. This will output the MAC address of all scans - watch it when you press your new button.
