@@ -41,7 +41,10 @@ buttons = {}
 
 # Populate buttons dict with yaml buttons
 for v in yaml_dict.itervalues():
-  buttons[v['MAC']] = v['HA_EVENT']
+  mac = v['MAC'].lower()
+  event = v['HA_EVENT']
+  logging.info(" adding MAC " + mac + ", event '" + event + "'")
+  buttons[mac] = event
 
 # Look for arps
 def arp_display(pkt):
